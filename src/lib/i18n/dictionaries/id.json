@@ -1,0 +1,32 @@
+{
+  "common": {
+    "loading": "Memuat...",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "edit": "Edit",
+    "delete": "Hapus",
+    "confirm": "Konfirmasi",
+    "success": "Sukses",
+    "error": "Kesalahan"
+  },
+  "auth": {
+    "login": "Masuk",
+    "logout": "Keluar",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "signIn": "Masuk"
+  },
+  "nav": {
+    "dashboard": "Dasbor",
+    "employees": "Karyawan",
+    "departments": "Departemen",
+    "skills": "Keterampilan",
+    "1on1s": "1on1",
+    "evaluations": "Evaluasi",
+    "settings": "Pengaturan"
+  },
+  "dashboard": {
+    "welcome": "Selamat datang",
+    "overview": "Ikhtisar"
+  }
+}

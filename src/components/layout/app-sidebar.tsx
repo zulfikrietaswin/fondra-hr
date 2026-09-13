@@ -15,7 +15,10 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { motion } from 'framer-motion';
+
 import { roleAtLeast } from '@/lib/roles';
+import { useI18n } from '@/lib/i18n/client';
 
 import {
   Sidebar,
@@ -33,19 +36,19 @@ import {
 
 import type { Role } from '@/services/auth-context';
 
-const mainNav = [
-  { href: '/dashboard', label: 'ダッシュボード', icon: LayoutDashboard, minRole: 'viewer' as Role },
-  { href: '/employees', label: '従業員', icon: Users, minRole: 'viewer' as Role },
-  { href: '/departments', label: '組織図', icon: Building2, minRole: 'viewer' as Role },
-  { href: '/skills', label: 'スキル', icon: Sparkles, minRole: 'viewer' as Role },
-  { href: '/one-on-ones', label: '1on1', icon: Handshake, minRole: 'viewer' as Role },
-  { href: '/evaluations', label: '評価', icon: ClipboardList, minRole: 'viewer' as Role },
+const getMainNav = (dict: any) => [
+  { href: '/dashboard', label: dict.nav.dashboard || 'ダッシュボード', icon: LayoutDashboard, minRole: 'viewer' as Role },
+  { href: '/employees', label: dict.nav.employees || '従業員', icon: Users, minRole: 'viewer' as Role },
+  { href: '/departments', label: dict.nav.departments || '組織図', icon: Building2, minRole: 'viewer' as Role },
+  { href: '/skills', label: dict.nav.skills || 'スキル', icon: Sparkles, minRole: 'viewer' as Role },
+  { href: '/one-on-ones', label: dict.nav['1on1s'] || '1on1', icon: Handshake, minRole: 'viewer' as Role },
+  { href: '/evaluations', label: dict.nav.evaluations || '評価', icon: ClipboardList, minRole: 'viewer' as Role },
 ];
 
-const adminNav = [
+const getAdminNav = (dict: any) => [
   { href: '/ai-assistant', label: 'AI アシスタント', icon: Bot, minRole: 'viewer' as Role },
   { href: '/audit-logs', label: '監査ログ', icon: FileText, minRole: 'viewer' as Role },
-  { href: '/settings', label: '設定', icon: Settings, minRole: 'admin' as Role },
+  { href: '/settings', label: dict.nav.settings || '設定', icon: Settings, minRole: 'admin' as Role },
 ];
 
 interface AppSidebarProps {
@@ -55,6 +58,10 @@ interface AppSidebarProps {
 
 export function AppSidebar({ role, orgName }: AppSidebarProps) {
   const pathname = usePathname();
+  const { dict } = useI18n();
+
+  const mainNav = getMainNav(dict);
+  const adminNav = getAdminNav(dict);
 
   return (
     <Sidebar collapsible="icon">
@@ -83,6 +90,7 @@ export function AppSidebar({ role, orgName }: AppSidebarProps) {
                 .filter((item) => roleAtLeast(role, item.minRole))
                 .map((item) => (
                   <SidebarMenuItem key={item.href + item.label}>
+                    <motion.div whileHover={{ scale: 1.05, x: 5 }} whileTap={{ scale: 0.95 }}>
                     <SidebarMenuButton
                       isActive={pathname === item.href}
                       render={<Link href={item.href} />}
@@ -90,6 +98,7 @@ export function AppSidebar({ role, orgName }: AppSidebarProps) {
                       <item.icon />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
+                    </motion.div>
                   </SidebarMenuItem>
                 ))}
             </SidebarMenu>
@@ -104,6 +113,7 @@ export function AppSidebar({ role, orgName }: AppSidebarProps) {
                 .filter((item) => roleAtLeast(role, item.minRole))
                 .map((item) => (
                   <SidebarMenuItem key={item.href}>
+                    <motion.div whileHover={{ scale: 1.05, x: 5 }} whileTap={{ scale: 0.95 }}>
                     <SidebarMenuButton
                       isActive={pathname === item.href}
                       render={<Link href={item.href} />}
@@ -111,6 +121,7 @@ export function AppSidebar({ role, orgName }: AppSidebarProps) {
                       <item.icon />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
+                    </motion.div>
                   </SidebarMenuItem>
                 ))}
             </SidebarMenu>
