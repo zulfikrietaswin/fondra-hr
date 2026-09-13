@@ -24,18 +24,25 @@ export const metadata: Metadata = {
   description: 'マルチテナント型タレントマネジメントSaaS',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import { getI18n } from '@/lib/i18n/server';
+import { I18nProvider } from '@/lib/i18n/client';
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { locale, dict } = await getI18n();
+
   return (
     <html
-      lang="ja"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <body>
-        <Providers>
-          {children}
-          <Toaster />
-        </Providers>
+        <I18nProvider initialLocale={locale} initialDict={dict}>
+          <Providers>
+            {children}
+            <Toaster />
+          </Providers>
+        </I18nProvider>
       </body>
     </html>
   );

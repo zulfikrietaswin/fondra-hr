@@ -4,9 +4,12 @@ import { Building2, ClipboardList, Sparkles, Users } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
+import { motion } from 'framer-motion';
+
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useI18n } from '@/lib/i18n/client';
 import type {
   DashboardStats,
   DepartmentHeadcount,
@@ -84,7 +87,8 @@ interface StatCardProps {
 function StatCard({ title, value, icon: Icon, href }: StatCardProps) {
   return (
     <Link href={href}>
-      <Card className="hover:bg-muted/30 transition-colors">
+      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+      <Card className="hover:bg-white/70 dark:hover:bg-zinc-900/80 transition-colors">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-muted-foreground text-sm font-medium">{title}</CardTitle>
           <Icon className="text-muted-foreground h-4 w-4" />
@@ -93,6 +97,7 @@ function StatCard({ title, value, icon: Icon, href }: StatCardProps) {
           <div className="text-2xl font-bold">{value}</div>
         </CardContent>
       </Card>
+      </motion.div>
     </Link>
   );
 }
@@ -158,14 +163,35 @@ export function DashboardClient({
   skillCategories,
   employeeStatuses,
 }: Props) {
-  return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold tracking-tight">ダッシュボード</h1>
+  const { dict } = useI18n();
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="従業員数" value={stats.employeeCount} icon={Users} href="/employees" />
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } }
+  };
+
+  return (
+    <motion.div
+      className="space-y-6"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.h1 variants={item} className="text-2xl font-bold tracking-tight">{dict.nav?.dashboard || 'ダッシュボード'}</motion.h1>
+
+      <motion.div variants={item} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard title={dict.nav?.employees || "従業員数"} value={stats.employeeCount} icon={Users} href="/employees" />
         <StatCard
-          title="部署数"
+          title={dict.nav?.departments || "部署数"}
           value={stats.departmentCount}
           icon={Building2}
           href="/departments"
@@ -177,9 +203,9 @@ export function DashboardClient({
           icon={ClipboardList}
           href="/evaluations"
         />
-      </div>
+      </motion.div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <motion.div variants={item} className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">部署別人数</CardTitle>
@@ -207,8 +233,9 @@ export function DashboardClient({
             </ChartSlot>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
+      <motion.div variants={item}>
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">スキルカテゴリ分布</CardTitle>
@@ -219,7 +246,9 @@ export function DashboardClient({
           </ChartSlot>
         </CardContent>
       </Card>
+      </motion.div>
 
+      <motion.div variants={item}>
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">最近のアクティビティ</CardTitle>
@@ -258,6 +287,7 @@ export function DashboardClient({
           )}
         </CardContent>
       </Card>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

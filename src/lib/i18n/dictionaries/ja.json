@@ -1,0 +1,32 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "edit": "編集",
+    "delete": "削除",
+    "confirm": "確認",
+    "success": "成功",
+    "error": "エラー"
+  },
+  "auth": {
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "signIn": "サインイン"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "employees": "従業員",
+    "departments": "組織図",
+    "skills": "スキル管理",
+    "1on1s": "1on1",
+    "evaluations": "評価",
+    "settings": "設定"
+  },
+  "dashboard": {
+    "welcome": "ようこそ",
+    "overview": "概要"
+  }
+}
