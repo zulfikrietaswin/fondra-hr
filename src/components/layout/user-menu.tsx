@@ -66,7 +66,7 @@ export function UserMenu({ email }: UserMenuProps) {
           <DropdownMenuSeparator />
           <DropdownMenuItem disabled={isPending} onClick={() => startTransition(() => signOut())}>
             <LogOut className="mr-2 h-4 w-4" />
-            {dict.auth.logout || 'ログアウト'}
+            {dict.auth?.logout || 'ログアウト'}
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

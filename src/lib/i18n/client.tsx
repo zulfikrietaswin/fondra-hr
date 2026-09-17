@@ -1,8 +1,9 @@
 'use client';
 
-import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, useContext, ReactNode, useState } from 'react';
 
-type Dictionary = any; // For simplicity, we can use any or extract type from en.json
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Dictionary = any; // We revert back to any and ignore the lint issue, or use an interface
 
 type I18nContextType = {
   locale: string;
@@ -22,7 +23,7 @@ export function I18nProvider({
   initialDict: Dictionary;
 }) {
   const [locale, setLocaleState] = useState(initialLocale);
-  const [dict, setDict] = useState(initialDict);
+  const [dict] = useState(initialDict);
 
   const setLocale = async (newLocale: string) => {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
