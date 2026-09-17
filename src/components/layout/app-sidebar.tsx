@@ -36,19 +36,21 @@ import {
 
 import type { Role } from '@/services/auth-context';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getMainNav = (dict: any) => [
-  { href: '/dashboard', label: dict.nav.dashboard || 'ダッシュボード', icon: LayoutDashboard, minRole: 'viewer' as Role },
-  { href: '/employees', label: dict.nav.employees || '従業員', icon: Users, minRole: 'viewer' as Role },
-  { href: '/departments', label: dict.nav.departments || '組織図', icon: Building2, minRole: 'viewer' as Role },
-  { href: '/skills', label: dict.nav.skills || 'スキル', icon: Sparkles, minRole: 'viewer' as Role },
-  { href: '/one-on-ones', label: dict.nav['1on1s'] || '1on1', icon: Handshake, minRole: 'viewer' as Role },
-  { href: '/evaluations', label: dict.nav.evaluations || '評価', icon: ClipboardList, minRole: 'viewer' as Role },
+  { href: '/dashboard', label: dict.nav?.dashboard || 'ダッシュボード', icon: LayoutDashboard, minRole: 'viewer' as Role },
+  { href: '/employees', label: dict.nav?.employees || '従業員', icon: Users, minRole: 'viewer' as Role },
+  { href: '/departments', label: dict.nav?.departments || '組織図', icon: Building2, minRole: 'viewer' as Role },
+  { href: '/skills', label: dict.nav?.skills || 'スキル', icon: Sparkles, minRole: 'viewer' as Role },
+  { href: '/one-on-ones', label: dict.nav?.['1on1s'] || '1on1', icon: Handshake, minRole: 'viewer' as Role },
+  { href: '/evaluations', label: dict.nav?.evaluations || '評価', icon: ClipboardList, minRole: 'viewer' as Role },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getAdminNav = (dict: any) => [
   { href: '/ai-assistant', label: 'AI アシスタント', icon: Bot, minRole: 'viewer' as Role },
   { href: '/audit-logs', label: '監査ログ', icon: FileText, minRole: 'viewer' as Role },
-  { href: '/settings', label: dict.nav.settings || '設定', icon: Settings, minRole: 'admin' as Role },
+  { href: '/settings', label: dict.nav?.settings || '設定', icon: Settings, minRole: 'admin' as Role },
 ];
 
 interface AppSidebarProps {

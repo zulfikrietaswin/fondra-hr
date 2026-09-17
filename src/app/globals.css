@@ -136,23 +136,23 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/40 dark:bg-black/40 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+    @apply bg-white/40 dark:bg-black/40 backdrop-blur-md border-2 border-foreground dark:border-white/50 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)];
   }
 
   .glass-card {
-    @apply bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg border border-white/20 dark:border-white/10 shadow-sm;
+    @apply bg-white/60 dark:bg-zinc-900/60 backdrop-blur-lg border-2 border-foreground dark:border-white/30 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)];
   }
 
   .glass-nav {
-    @apply bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl border-b border-white/20 dark:border-white/10;
+    @apply bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl border-b-2 border-foreground dark:border-white/30;
   }
 
   .glass-accent {
-    @apply bg-white/50 dark:bg-zinc-800/50 backdrop-blur-sm;
+    @apply bg-white/50 dark:bg-zinc-800/50 backdrop-blur-sm border-2 border-foreground dark:border-white/30 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)];
   }
 
   .glass-border {
-    @apply border-white/30 dark:border-white/10;
+    @apply border-2 border-foreground dark:border-white/30;
   }
 }
 
